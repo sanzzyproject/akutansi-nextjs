@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { hitungRingkasan } from '@/services/api'; // seedDummyData sudah dihapus dari sini
+import { hitungRingkasan } from '@/services/api';
 import type { RingkasanAkuntansi } from '@/db/types';
 import { DollarSign, TrendingUp, TrendingDown, CheckCircle, XCircle, Plus, FileText, Wallet, Package, Monitor } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
@@ -14,13 +14,22 @@ function formatRupiah(n: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(n);
 }
 
+// Tambahan: Helper untuk format angka di grafik biar rapi (k / jt) dan tidak bulat jadi 1jt semua
+function formatGrafik(value: number) {
+  if (value >= 1000000) {
+    return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'jt';
+  } else if (value >= 1000) {
+    return (value / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  }
+  return value.toString();
+}
+
 export default function Dashboard() {
   const [data, setData] = useState<RingkasanAkuntansi | null>(null);
   const [loading, setLoading] = useState(true);
 
   const load = async () => {
     setLoading(true);
-    // await seedDummyData(); <-- BARIS INI YANG MEMBUAT MUNCUL TERUS, SUDAH DIHAPUS
     const r = await hitungRingkasan();
     setData(r);
     setLoading(false);
@@ -43,20 +52,8 @@ export default function Dashboard() {
     );
   }
 
-  if (!data || data.jumlahTransaksi === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20 text-center space-y-4">
-        <div className="h-20 w-20 rounded-full bg-muted flex items-center justify-center">
-          <DollarSign className="h-10 w-10 text-muted-foreground" />
-        </div>
-        <h3 className="text-xl font-semibold">Belum Ada Data</h3>
-        <p className="text-muted-foreground max-w-sm">Mulai tambahkan transaksi akuntansi untuk melihat ringkasan dashboard.</p>
-        <Button asChild size="lg" className="touch-target mt-4">
-          <Link href="/transaksi"><Plus className="mr-2 h-5 w-5" />Tambah Transaksi</Link>
-        </Button>
-      </div>
-    );
-  }
+  // Jika data belum ada, return null agar tidak error (tidak menampilkan halaman "Belum ada data" lagi)
+  if (!data) return null;
 
   const chartData = [
     { name: 'Kas', value: data.detail.kas, color: 'hsl(217, 91%, 50%)' },
@@ -107,7 +104,8 @@ export default function Dashboard() {
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={chartData}>
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 10 }} tickFormatter={v => `${(v / 1_000_000).toFixed(0)}jt`} />
+              {/* tickFormatter diganti memanggil fungsi formatGrafik dan width ditambah agar label tidak kepotong */}
+              <YAxis tick={{ fontSize: 10 }} width={40} tickFormatter={formatGrafik} />
               <Tooltip formatter={(v: number) => formatRupiah(v)} />
               <Bar dataKey="value" radius={[8, 8, 0, 0]}>
                 {chartData.map((entry, i) => (
