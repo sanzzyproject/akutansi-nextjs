@@ -1,9 +1,9 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, TableFooter } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { hitungSaldo, exportJSON, resetTransaksi } from '@/services/api';
 import type { SaldoBerjalan } from '@/db/types';
@@ -29,7 +29,6 @@ function BalanceCell({ value }: { value: number }) {
 export default function Laporan() {
   const [data, setData] = useState<SaldoBerjalan[]>([]);
   const [loading, setLoading] = useState(true);
-  const [showReset, setShowReset] = useState(false);
   const { toast } = useToast();
 
   const load = async () => {
@@ -54,15 +53,14 @@ export default function Laporan() {
   };
 
   const handleReset = async () => {
-    await resetTransaksi();
-    setShowReset(false);
-    toast({ title: 'Berhasil', description: 'Semua data telah direset' });
-    load();
+    if (window.confirm("Reset Semua Data? Semua transaksi akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.")) {
+      await resetTransaksi();
+      toast({ title: 'Berhasil', description: 'Semua data telah direset' });
+      load();
+    }
   };
 
-  if (loading) {
-    return <Skeleton className="h-96 rounded-xl" />;
-  }
+  if (loading) return <Skeleton className="h-96 rounded-xl" />;
 
   if (data.length === 0) {
     return (
@@ -81,96 +79,74 @@ export default function Laporan() {
 
   return (
     <div className="space-y-4">
-      {/* Action Buttons */}
       <div className="flex gap-2">
         <Button onClick={handleExport} variant="outline" className="flex-1 touch-target">
           <Download className="mr-2 h-4 w-4" />Export JSON
         </Button>
-        <Button onClick={() => setShowReset(true)} variant="destructive" className="touch-target">
+        <Button onClick={handleReset} variant="destructive" className="touch-target">
           <RotateCcw className="mr-2 h-4 w-4" />Reset
         </Button>
       </div>
 
-      {/* LKS Table */}
       <Card>
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="min-w-[40px]">No</TableHead>
-                  <TableHead className="min-w-[100px]">Keterangan</TableHead>
-                  <TableHead className="min-w-[120px] text-right">Kas</TableHead>
-                  <TableHead className="min-w-[120px] text-right">Perlengkapan</TableHead>
-                  <TableHead className="min-w-[120px] text-right">Peralatan</TableHead>
-                  <TableHead className="min-w-[120px] text-right">Utang Usaha</TableHead>
-                  <TableHead className="min-w-[120px] text-right">Modal</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {data.map((row, idx) => (
-                  <>
-                    <TableRow key={`t-${row.transaksi.id}`}>
-                      <TableCell className="font-medium">{idx + 1}</TableCell>
-                      <TableCell>
-                        <p className="font-medium text-xs">{row.transaksi.keterangan}</p>
-                        <p className="text-[10px] text-muted-foreground">{row.transaksi.tanggal}</p>
-                      </TableCell>
-                      <TableCell className="text-right"><ValueCell value={row.transaksi.kas} /></TableCell>
-                      <TableCell className="text-right"><ValueCell value={row.transaksi.perlengkapan} /></TableCell>
-                      <TableCell className="text-right"><ValueCell value={row.transaksi.peralatan} /></TableCell>
-                      <TableCell className="text-right"><ValueCell value={row.transaksi.utangUsaha} /></TableCell>
-                      <TableCell className="text-right"><ValueCell value={row.transaksi.modal} /></TableCell>
-                    </TableRow>
-                    <TableRow key={`s-${row.transaksi.id}`} className="bg-muted/30">
-                      <TableCell></TableCell>
-                      <TableCell className="text-[10px] text-muted-foreground italic">Saldo</TableCell>
-                      <TableCell className="text-right"><BalanceCell value={row.spiegel.kas} /></TableCell>
-                      <TableCell className="text-right"><BalanceCell value={row.spiegel.perlengkapan} /></TableCell>
-                      <TableCell className="text-right"><BalanceCell value={row.spiegel.peralatan} /></TableCell>
-                      <TableCell className="text-right"><BalanceCell value={row.spiegel.utangUsaha} /></TableCell>
-                      <TableCell className="text-right"><BalanceCell value={row.spiegel.modal} /></TableCell>
-                    </TableRow>
-                  </>
-                ))}
-              </TableBody>
-              <TableFooter>
-                <TableRow>
-                  <TableCell colSpan={2} className="font-bold">TOTAL</TableCell>
-                  <TableCell className="text-right font-bold">{formatRp(last.kas)}</TableCell>
-                  <TableCell className="text-right font-bold">{formatRp(last.perlengkapan)}</TableCell>
-                  <TableCell className="text-right font-bold">{formatRp(last.peralatan)}</TableCell>
-                  <TableCell className="text-right font-bold">{formatRp(last.utangUsaha)}</TableCell>
-                  <TableCell className="text-right font-bold">{formatRp(last.modal)}</TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell colSpan={2} className="font-bold text-primary">HARTA = UTANG + MODAL</TableCell>
-                  <TableCell colSpan={3} className="text-right font-bold text-primary">
-                    {formatRp(totalHarta)}
-                  </TableCell>
-                  <TableCell colSpan={2} className="text-right font-bold text-primary">
-                    {formatRp(last.utangUsaha + last.modal)}
-                  </TableCell>
-                </TableRow>
-              </TableFooter>
-            </Table>
-          </div>
+        <CardContent className="p-0 overflow-x-auto">
+          <table className="w-full text-sm text-left">
+            <thead className="bg-muted text-muted-foreground">
+              <tr>
+                <th className="p-3">No</th>
+                <th className="p-3 min-w-[150px]">Keterangan</th>
+                <th className="p-3 text-right">Kas</th>
+                <th className="p-3 text-right">Perlengkapan</th>
+                <th className="p-3 text-right">Peralatan</th>
+                <th className="p-3 text-right">Utang Usaha</th>
+                <th className="p-3 text-right">Modal</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {data.map((row, idx) => (
+                <React.Fragment key={`group-${row.transaksi.id}`}>
+                  <tr>
+                    <td className="p-3 font-medium">{idx + 1}</td>
+                    <td className="p-3">
+                      <p className="font-medium text-xs">{row.transaksi.keterangan}</p>
+                      <p className="text-[10px] text-muted-foreground">{row.transaksi.tanggal}</p>
+                    </td>
+                    <td className="p-3 text-right"><ValueCell value={row.transaksi.kas} /></td>
+                    <td className="p-3 text-right"><ValueCell value={row.transaksi.perlengkapan} /></td>
+                    <td className="p-3 text-right"><ValueCell value={row.transaksi.peralatan} /></td>
+                    <td className="p-3 text-right"><ValueCell value={row.transaksi.utangUsaha} /></td>
+                    <td className="p-3 text-right"><ValueCell value={row.transaksi.modal} /></td>
+                  </tr>
+                  <tr className="bg-muted/30">
+                    <td className="p-3"></td>
+                    <td className="p-3 text-[10px] text-muted-foreground italic">Saldo</td>
+                    <td className="p-3 text-right"><BalanceCell value={row.spiegel.kas} /></td>
+                    <td className="p-3 text-right"><BalanceCell value={row.spiegel.perlengkapan} /></td>
+                    <td className="p-3 text-right"><BalanceCell value={row.spiegel.peralatan} /></td>
+                    <td className="p-3 text-right"><BalanceCell value={row.spiegel.utangUsaha} /></td>
+                    <td className="p-3 text-right"><BalanceCell value={row.spiegel.modal} /></td>
+                  </tr>
+                </React.Fragment>
+              ))}
+            </tbody>
+            <tfoot className="bg-muted/50 border-t-2 border-border font-bold">
+              <tr>
+                <td colSpan={2} className="p-3">TOTAL</td>
+                <td className="p-3 text-right">{formatRp(last.kas)}</td>
+                <td className="p-3 text-right">{formatRp(last.perlengkapan)}</td>
+                <td className="p-3 text-right">{formatRp(last.peralatan)}</td>
+                <td className="p-3 text-right">{formatRp(last.utangUsaha)}</td>
+                <td className="p-3 text-right">{formatRp(last.modal)}</td>
+              </tr>
+              <tr>
+                <td colSpan={2} className="p-3 text-primary">HARTA = UTANG + MODAL</td>
+                <td colSpan={3} className="p-3 text-right text-primary">{formatRp(totalHarta)}</td>
+                <td colSpan={2} className="p-3 text-right text-primary">{formatRp(last.utangUsaha + last.modal)}</td>
+              </tr>
+            </tfoot>
+          </table>
         </CardContent>
       </Card>
-
-      {/* Reset Dialog */}
-      <Dialog open={showReset} onOpenChange={setShowReset}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Reset Semua Data?</DialogTitle>
-            <DialogDescription>Semua transaksi akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.</DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowReset(false)}>Batal</Button>
-            <Button variant="destructive" onClick={handleReset}>Reset Data</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
