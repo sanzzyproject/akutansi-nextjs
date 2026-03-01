@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { hitungRingkasan, seedDummyData } from '@/services/api';
+import { hitungRingkasan } from '@/services/api'; // seedDummyData sudah dihapus dari sini
 import type { RingkasanAkuntansi } from '@/db/types';
 import { DollarSign, TrendingUp, TrendingDown, CheckCircle, XCircle, Plus, FileText, Wallet, Package, Monitor } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
@@ -20,7 +20,7 @@ export default function Dashboard() {
 
   const load = async () => {
     setLoading(true);
-    await seedDummyData();
+    // await seedDummyData(); <-- BARIS INI YANG MEMBUAT MUNCUL TERUS, SUDAH DIHAPUS
     const r = await hitungRingkasan();
     setData(r);
     setLoading(false);
@@ -65,7 +65,7 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
       <Card className={`border-2 ${data.seimbang ? 'border-success/50 bg-success/5' : 'border-destructive/50 bg-destructive/5'}`}>
         <CardContent className="p-4 flex items-center gap-3">
           {data.seimbang
