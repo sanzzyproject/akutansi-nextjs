@@ -1,5 +1,7 @@
+"use client";
+
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -50,7 +52,7 @@ export default function Dashboard() {
         <h3 className="text-xl font-semibold">Belum Ada Data</h3>
         <p className="text-muted-foreground max-w-sm">Mulai tambahkan transaksi akuntansi untuk melihat ringkasan dashboard.</p>
         <Button asChild size="lg" className="touch-target mt-4">
-          <Link to="/transaksi"><Plus className="mr-2 h-5 w-5" />Tambah Transaksi</Link>
+          <Link href="/transaksi"><Plus className="mr-2 h-5 w-5" />Tambah Transaksi</Link>
         </Button>
       </div>
     );
@@ -64,7 +66,6 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Persamaan Akuntansi */}
       <Card className={`border-2 ${data.seimbang ? 'border-success/50 bg-success/5' : 'border-destructive/50 bg-destructive/5'}`}>
         <CardContent className="p-4 flex items-center gap-3">
           {data.seimbang
@@ -82,7 +83,6 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
         <SummaryCard icon={TrendingUp} label="Total Harta" value={formatRupiah(data.totalHarta)} color="text-primary" />
         <SummaryCard icon={TrendingDown} label="Total Utang" value={formatRupiah(data.totalUtang)} color="text-destructive" />
@@ -90,7 +90,6 @@ export default function Dashboard() {
         <SummaryCard icon={FileText} label="Transaksi" value={data.jumlahTransaksi.toString()} color="text-warning" />
       </div>
 
-      {/* Detail Harta */}
       <Card>
         <CardContent className="p-4 space-y-3">
           <h3 className="font-semibold text-sm">Komposisi Harta</h3>
@@ -102,7 +101,6 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
-      {/* Chart */}
       <Card>
         <CardContent className="p-4">
           <h3 className="font-semibold text-sm mb-4">Grafik Harta</h3>
@@ -121,13 +119,12 @@ export default function Dashboard() {
         </CardContent>
       </Card>
 
-      {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-3">
         <Button asChild size="lg" className="touch-target">
-          <Link to="/transaksi"><Plus className="mr-2 h-5 w-5" />Tambah Transaksi</Link>
+          <Link href="/transaksi"><Plus className="mr-2 h-5 w-5" />Tambah Transaksi</Link>
         </Button>
         <Button asChild variant="outline" size="lg" className="touch-target">
-          <Link to="/laporan"><FileText className="mr-2 h-5 w-5" />Lihat Laporan</Link>
+          <Link href="/laporan"><FileText className="mr-2 h-5 w-5" />Lihat Laporan</Link>
         </Button>
       </div>
     </div>
