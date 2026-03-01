@@ -120,7 +120,7 @@ Dikembangkan secara penuh oleh **SANN404 FORUM** dengan dedikasi tinggi untuk me
 
 * **Lead Developer & System Logic:** SANN404 FORUM
 * **UI/UX Architect:** SANN404 FORUM
-* **Domain & Hosting:** Vercel (`movingdownloader.vercel.app`)
+* **Domain & Hosting:** Vercel (`https://kasflowapp.vercel.app`)
 
 Aplikasi ini mampu melayani ribuan pengguna karena tidak ada beban pengolahan data pada *server* (setiap *browser* memproses datanya sendiri).
 
