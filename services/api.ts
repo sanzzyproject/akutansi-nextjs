@@ -83,3 +83,24 @@ export async function exportJSON(): Promise<string> {
   const ringkasan = await hitungRingkasan();
   return JSON.stringify({ transaksi, ringkasan }, null, 2);
 }
+
+// ... (KODE LAMA BIARKAN SAJA DI SINI) ...
+
+// === TAMBAHAN API UNTUK ANALISIS DEBIT/KREDIT ===
+
+export async function getAnalisis(): Promise<AnalisisRecord[]> {
+  await delay();
+  return db.analisis.orderBy('id').toArray();
+}
+
+export async function addAnalisis(data: Omit<AnalisisRecord, 'id'>): Promise<AnalisisRecord> {
+  await delay();
+  const id = await db.analisis.add(data as AnalisisRecord);
+  return { ...data, id: id as number };
+}
+
+export async function deleteAnalisis(id: number): Promise<void> {
+  await delay();
+  await db.analisis.delete(id);
+}
+
