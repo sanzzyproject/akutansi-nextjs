@@ -74,6 +74,42 @@ Aplikasi ini tidak memiliki *backend/server* terpisah. Berikut adalah tumpukan t
 
 ---
 
+## 🗂️ Struktur Folder Projek
+
+Aplikasi ini menggunakan sistem *App Router* dari Next.js 14. Berikut adalah struktur direktori yang digunakan:
+
+```text
+akutansi-nextjs/
+├── app/
+│   ├── analisis/
+│   │   └── page.tsx       # Halaman Analisis Debit/Kredit (Pilar Akuntansi)
+│   ├── docs/
+│   │   └── page.tsx       # Halaman Dokumentasi Panduan Web
+│   ├── laporan/
+│   │   └── page.tsx       # Halaman Laporan & Tabel Kertas Kerja
+│   ├── transaksi/
+│   │   └── page.tsx       # Halaman Input Transaksi (Persamaan Dasar)
+│   ├── globals.css        # File CSS utama (Konfigurasi warna Tailwind)
+│   ├── layout.tsx         # Root layout aplikasi
+│   └── page.tsx           # Halaman Welcome Screen Overlay & Dashboard Utama
+├── components/
+│   ├── ui/                # Kumpulan komponen UI dari Shadcn (Card, Button, Input, dll)
+│   └── Layout.tsx         # Komponen Master Navigasi (Sidebar Desktop & Bottom-bar Mobile)
+├── db/
+│   ├── database.ts        # Inisialisasi IndexedDB menggunakan Dexie.js
+│   └── types.ts           # Definisi antarmuka (Interfaces) TypeScript
+├── hooks/
+│   ├── use-mobile.ts      # Kustom hook deteksi layar perangkat mobile
+│   └── use-toast.ts       # Hook pengelola pop-up notifikasi (Radix UI)
+├── services/
+│   └── api.ts             # Kumpulan fungsi CRUD untuk jembatan UI ke Database Lokal
+├── public/                # Folder aset statis (favicon, logo, dll)
+├── package.json           # Konfigurasi module & script Node.js
+├── tailwind.config.ts     # Konfigurasi utility Tailwind CSS
+├── tsconfig.json          # Konfigurasi compiler TypeScript
+└── README.md              # File panduan repository ini
+```
+
 ## 📂 Penyimpanan Data (Privacy & Local Storage)
 
 Aplikasi ini menggunakan pendekatan **100% Client-Side**. 
