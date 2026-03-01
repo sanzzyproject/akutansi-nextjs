@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,11 +10,54 @@ import type { RingkasanAkuntansi } from '@/db/types';
 import { DollarSign, TrendingUp, TrendingDown, CheckCircle, XCircle, Plus, FileText, Wallet, Package, Monitor } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
+// --- KOMPONEN BARU: HALAMAN WELCOME (ONBOARDING) ---
+function WelcomeScreen({ onStart }: { onStart: () => void }) {
+  return (
+    <div className="fixed inset-0 z-[100] bg-white flex flex-col justify-between overflow-hidden text-black animate-in fade-in duration-500">
+      {/* Background Wavy Shapes - CSS Murni tanpa gambar */}
+      <div className="absolute top-0 left-0 w-[150%] h-[55vh] bg-[#cdeaf8] rounded-b-[50%] -translate-x-[10%] -z-10"></div>
+      <div className="absolute bottom-[-5%] left-[-20%] w-[150%] h-[35vh] bg-[#cdeaf8] rounded-t-[50%] -z-10 transform rotate-[-5deg]"></div>
+
+      <div className="px-8 pt-32 pb-10 flex-1 flex flex-col justify-center relative w-full max-w-md mx-auto">
+        {/* Dekorasi Bintang (Sparkles) */}
+        <svg className="absolute top-20 right-8 text-white w-12 h-12 rotate-12 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
+        <svg className="absolute top-64 left-6 text-black w-14 h-14 -rotate-12 drop-shadow-md" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
+        <svg className="absolute top-72 left-20 text-black w-8 h-8 rotate-45 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.15 9.85L22 12L14.15 14.15L12 22L9.85 14.15L2 12L9.85 9.85L12 2Z" /></svg>
+        <svg className="absolute bottom-16 right-10 text-white w-16 h-16 rotate-45 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
+
+        <h1 className="text-[2.75rem] font-black leading-[1.1] mb-5 tracking-tight text-black relative z-10">
+          Kelola<br/>Keuangan<br/>Jadi Mudah
+        </h1>
+        <p className="text-gray-800 text-lg mb-8 leading-relaxed max-w-[280px] font-medium relative z-10">
+          Atur kas dan transaksi lebih mudah dengan aplikasi LKS akuntansi ini.
+        </p>
+
+        {/* Indikator Titik (Pagination Dots) */}
+        <div className="flex items-center gap-2 mb-8 mt-2">
+          <div className="w-6 h-2 bg-black rounded-full"></div>
+          <div className="w-4 h-2 bg-transparent border-2 border-gray-400 rounded-full"></div>
+          <div className="w-4 h-2 bg-transparent border-2 border-gray-400 rounded-full"></div>
+        </div>
+      </div>
+
+      <div className="px-8 pb-10 flex flex-col items-center gap-4 z-10 w-full max-w-md mx-auto">
+        <button onClick={onStart} className="w-full bg-[#1a1a1a] text-white py-4 rounded-full text-center font-bold text-lg hover:bg-black transition-all shadow-lg active:scale-95 touch-target">
+          Mulai Sekarang
+        </button>
+        <button onClick={onStart} className="text-gray-600 font-medium hover:text-black transition-colors py-2 underline-offset-4 hover:underline">
+          Masuk
+        </button>
+        <p className="text-xs text-gray-500 mt-2 font-medium">Power by saanndec5ty</p>
+      </div>
+    </div>
+  );
+}
+// --------------------------------------------------
+
 function formatRupiah(n: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(n);
 }
 
-// Tambahan: Helper untuk format angka di grafik biar rapi (k / jt) dan tidak bulat jadi 1jt semua
 function formatGrafik(value: number) {
   if (value >= 1000000) {
     return (value / 1000000).toFixed(1).replace(/\.0$/, '') + 'jt';
@@ -27,6 +70,10 @@ function formatGrafik(value: number) {
 export default function Dashboard() {
   const [data, setData] = useState<RingkasanAkuntansi | null>(null);
   const [loading, setLoading] = useState(true);
+  
+  // State untuk mengontrol kemunculan halaman Welcome
+  const [showWelcome, setShowWelcome] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const load = async () => {
     setLoading(true);
@@ -35,8 +82,30 @@ export default function Dashboard() {
     setLoading(false);
   };
 
-  useEffect(() => { load(); }, []);
+  useEffect(() => {
+    setMounted(true);
+    // Cek apakah user sudah pernah klik "Mulai Sekarang" sebelumnya
+    if (!localStorage.getItem('welcomeSeen')) {
+      setShowWelcome(true);
+    }
+    load();
+  }, []);
 
+  const handleStart = () => {
+    // Simpan status agar halaman welcome tidak muncul lagi saat di-refresh
+    localStorage.setItem('welcomeSeen', 'true');
+    setShowWelcome(false);
+  };
+
+  // Mencegah error hydration di Next.js
+  if (!mounted) return null;
+
+  // Jika showWelcome aktif, Tampilkan layar Welcome di atas segalanya
+  if (showWelcome) {
+    return <WelcomeScreen onStart={handleStart} />;
+  }
+
+  // JIKA SUDAH MULAI SEKARANG, TAMPILKAN DASHBOARD NORMAL KITA
   if (loading) {
     return (
       <div className="space-y-4">
@@ -52,7 +121,6 @@ export default function Dashboard() {
     );
   }
 
-  // Jika data belum ada, return null agar tidak error (tidak menampilkan halaman "Belum ada data" lagi)
   if (!data) return null;
 
   const chartData = [
@@ -104,7 +172,6 @@ export default function Dashboard() {
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={chartData}>
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              {/* tickFormatter diganti memanggil fungsi formatGrafik dan width ditambah agar label tidak kepotong */}
               <YAxis tick={{ fontSize: 10 }} width={40} tickFormatter={formatGrafik} />
               <Tooltip formatter={(v: number) => formatRupiah(v)} />
               <Bar dataKey="value" radius={[8, 8, 0, 0]}>
