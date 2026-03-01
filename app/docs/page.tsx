@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { BookOpen, Info, ShieldAlert, Cpu, Database, Award, Heart } from 'lucide-react';
+import { BookOpen, Info, ShieldAlert, Cpu, Database, Award, Heart, SplitSquareHorizontal } from 'lucide-react';
 
 export default function DocsPage() {
   return (
@@ -21,7 +21,7 @@ export default function DocsPage() {
         </CardHeader>
         <CardContent className="text-sm text-muted-foreground space-y-3 leading-relaxed">
           <p>
-            <strong>Akuntansi LKS</strong> adalah aplikasi berbasis web yang dirancang untuk mempermudah pencatatan dan perhitungan <em>Persamaan Dasar Akuntansi</em> (Harta = Utang + Modal).
+            <strong>Akuntansi LKS</strong> adalah aplikasi berbasis web yang dirancang untuk mempermudah pencatatan dan perhitungan <em>Persamaan Dasar Akuntansi</em> (Harta = Utang + Modal) serta <em>Analisis Debit/Kredit</em>.
           </p>
           <p>
             Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara *real-time*.
@@ -51,6 +51,13 @@ export default function DocsPage() {
             </div>
           </div>
           <div className="flex gap-3">
+            <div className="w-1.5 rounded-full bg-blue-500 mt-1 mb-1"></div>
+            <div>
+              <strong className="text-foreground">Analisis Debit/Kredit (Baru):</strong>
+              <p className="text-muted-foreground mt-0.5">Pencatatan mutasi 5 pilar akuntansi (Harta, Utang, Modal, Pendapatan, Biaya) dengan algoritma yang mengunci posisi D/K secara otomatis sesuai standar akuntansi.</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
             <div className="w-1.5 rounded-full bg-warning mt-1 mb-1"></div>
             <div>
               <strong className="text-foreground">Laporan Terstruktur:</strong>
@@ -60,7 +67,28 @@ export default function DocsPage() {
         </CardContent>
       </Card>
 
-      {/* SEKSI BARU: Penjelasan Fleksibilitas Penggunaan */}
+      {/* SEKSI BARU: Penjelasan 2 Mode Pencatatan */}
+      <Card className="border-secondary/50 bg-secondary/10">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-2 text-lg">
+            <SplitSquareHorizontal className="h-5 w-5 text-secondary-foreground" /> Dua Mode Pencatatan
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-muted-foreground space-y-3 leading-relaxed">
+          <p>Sesuai dengan kurikulum LKS dan kebutuhan praktik, aplikasi ini menyediakan dua jalur pembukuan yang terpisah:</p>
+          <ul className="list-disc pl-5 space-y-3">
+            <li>
+              <strong className="text-foreground">1. Mode Persamaan Akuntansi:</strong><br/>
+              Digunakan untuk melihat dampak transaksi terhadap keseimbangan neraca (Harta = Utang + Modal). Pengguna memasukkan nilai plus (+) atau minus (-) secara manual. Mode ini sangat cocok untuk melatih logika dasar keseimbangan dan juga bisa dipakai untuk pencatatan arus kas bebas/bulanan.
+            </li>
+            <li>
+              <strong className="text-foreground">2. Mode Analisis D/K:</strong><br/>
+              Digunakan untuk analisis mendalam sebelum masuk ke Jurnal Umum. Pengguna menentukan Kategori (Harta/Utang/Modal/Pendapatan/Biaya) dan sifat pengaruhnya (+ atau -). <strong>Sistem akan otomatis mengunci posisi Debit (D) atau Kredit (K)</strong> sesuai hukum akuntansi baku, sehingga meminimalisir kesalahan siswa dalam menentukan posisi akun.
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+
       <Card className="border-primary/20 bg-primary/5">
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center gap-2 text-lg text-primary">
