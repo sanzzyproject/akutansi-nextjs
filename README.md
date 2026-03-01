@@ -2,12 +2,12 @@
   
   # 📊 Akuntansi LKS - Sistem Pembukuan Digital
   
-  **Transformasi Digital untuk Pembelajaran Akuntansi & Pencatatan Kas Terpadu**
+  **Aplikasi Web Client-Side untuk Pembelajaran Akuntansi & Pencatatan Kas Terpadu**
 
   [![Next.js](https://img.shields.io/badge/Next.js-14.2.3-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
   [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-  [![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=FastAPI&logoColor=white)](https://fastapi.tiangolo.com/)
+  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+  [![IndexedDB](https://img.shields.io/badge/Storage-IndexedDB_via_Dexie.js-4CAF50?style=for-the-badge&logo=databricks&logoColor=white)](https://dexie.org/)
   [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://movingdownloader.vercel.app/)
   [![License](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
 
@@ -19,112 +19,98 @@
 
 ## 📖 Tentang Projek
 
-**Akuntansi LKS** adalah aplikasi berbasis web revolusioner yang dikembangkan oleh **SANN404 FORUM**. Aplikasi ini dirancang untuk mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) Akuntansi serta memfasilitasi pencatatan arus kas harian secara fleksibel.
+**Akuntansi LKS** adalah aplikasi berbasis web revolusioner yang dikembangkan oleh **SANN404 FORUM**. Aplikasi ini dirancang 100% *Client-Side* untuk mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) Akuntansi serta memfasilitasi pencatatan arus kas harian secara fleksibel, cepat, dan aman langsung di perangkat pengguna.
 
-Dengan arsitektur modern, aplikasi ini menawarkan validasi *real-time* untuk Persamaan Dasar Akuntansi (Harta = Utang + Modal) dan dilengkapi dengan sistem cerdas untuk Analisis Debit/Kredit (D/K) yang sesuai dengan standar akuntansi profesional.
-
----
-
-## ✨ Fitur Utama (Core Features)
-
-### 1. 🧮 Dual Mode Pencatatan (Fleksibilitas Tinggi)
-* **Mode Persamaan Akuntansi:** Pencatatan manual dengan validasi *running balance* antara Harta dan Pasiva. Cocok untuk *expense tracker* harian maupun tugas LKS.
-* **Mode Analisis Debit/Kredit (D/K):** Algoritma sistem secara otomatis menentukan posisi Debit atau Kredit berdasarkan kategori akun (Harta, Utang, Modal, Pendapatan, Biaya) dan sifat pengaruhnya (+/-).
-
-### 2. 📈 Dashboard Cerdas & Analitik
-* **Visualisasi Data:** Menggunakan grafik batang responsif untuk memantau komposisi harta secara *real-time*.
-* **Live Validator:** Indikator dinamis (✅ Seimbang / ❌ Tidak Seimbang) yang bertindak sebagai auditor otomatis untuk setiap mutasi yang diinput.
-
-### 3. 📑 Laporan Terstruktur (Exportable)
-* Tabel laporan digenerasi secara otomatis mengikuti format kertas kerja standar akuntansi.
-* Dukungan penuh untuk kalkulasi saldo berjalan (*running balance*).
-* Fitur **Export JSON** untuk *backup* data lokal.
-
-### 4. 🚀 Performa & UI/UX Modern
-* **Halaman Onboarding (Welcome Screen):** Animasi sambutan yang modern menggunakan murni CSS dan SVG.
-* **Dark/Light Mode:** Terintegrasi penuh dengan *system preference* pengguna.
-* **100% Offline Ready:** Arsitektur *Full Client-Side* tanpa hambatan *loading* jaringan.
+Sistem ini tidak bergantung pada *database server*, melainkan memanfaatkan teknologi penyimpanan *browser* modern untuk memberikan pengalaman *zero-latency* saat melakukan analisis keuangan.
 
 ---
 
-## 🛠️ Stack Teknologi Terintegrasi
+## ✨ Fitur Utama (Real Implemented Features)
 
-Aplikasi ini dikembangkan menggunakan *stack* teknologi yang sangat modern dan disesuaikan untuk *deployment* Vercel:
+Aplikasi ini memiliki 5 modul halaman utama dengan fitur yang sangat spesifik:
 
-| Kategori | Teknologi | Deskripsi |
+### 1. 🚀 Halaman Welcome (Onboarding)
+* Tampilan sambutan layar penuh (overlay) murni menggunakan CSS Shapes dan SVG (tanpa aset gambar eksternal yang memberatkan).
+* Otomatis muncul di awal saat membuka web dan akan menutup mulus ke Dashboard saat tombol "Mulai Sekarang" ditekan.
+
+### 2. 📈 Dashboard Pintar (Analitik Visual)
+* **Status Keseimbangan Real-time:** Kartu indikator dinamis (✅ Seimbang / ❌ Tidak Seimbang) yang menghitung *Harta = Utang + Modal*.
+* **Ringkasan Finansial:** Menampilkan total Harta, Utang, Modal, dan jumlah transaksi dengan format Rupiah yang otomatis rapi.
+* **Grafik Batang Harta:** Visualisasi komposisi Kas, Perlengkapan, dan Peralatan menggunakan **Recharts**. Skala (Y-Axis) otomatis menyesuaikan *k* (ribuan) atau *jt* (jutaan) agar label tidak menumpuk.
+
+### 3. 🧮 Mode Transaksi (Persamaan Dasar Akuntansi)
+* Sistem pencatatan *Double-Entry* manual untuk Harta (Kas, Perlengkapan, Peralatan) dan Pasiva (Utang Usaha, Modal).
+* Format nominal pintar (+ dan -).
+* **Bebas Blokir (Fleksibel):** Form input sengaja tidak dikunci meski tidak seimbang, memungkinkan aplikasi ini berubah fungsi dari LKS Akuntansi menjadi sekadar *expense tracker* harian untuk pengguna umum.
+
+### 4. ⚖️ Mode Analisis Debit/Kredit (D/K)
+* Tabel pencatatan jurnal lanjutan untuk 5 pilar akun (Harta, Utang, Modal, Pendapatan, Biaya).
+* **Algoritma Auto D/K:** Sistem akan mendeteksi Kategori Akun dan Sifat (+/-) yang dipilih pengguna, lalu secara otomatis mengunci indikator **Debit (D)** atau **Kredit (K)** dengan warna biru/merah sesuai hukum baku akuntansi.
+
+### 5. 📑 Laporan (Kertas Kerja) & Manajemen Data
+* Tampilan tabel bergaris menyerupai buku LKS fisik.
+* **Auto Running Balance:** Saldo berjalan dihitung otomatis dan disisipkan di bawah setiap baris transaksi. Angka defisit (minus) otomatis berwarna merah.
+* **Export JSON:** Fitur untuk mengunduh semua data transaksi menjadi file `.json` sebagai *backup* karena aplikasi bersifat *local-storage*.
+* **Reset Data:** Menghapus seluruh memori *database* (kembali ke Rp 0).
+* **Dokumentasi Internal:** Halaman `/docs` bawaan (Built-in) yang menjelaskan panduan lengkap penggunaan web kepada *user*.
+* **Dark / Light Mode:** *Toggle* tema otomatis yang terintegrasi dengan Tailwind CSS dan preferensi sistem *user*.
+
+---
+
+## 🛠️ Stack Teknologi Terintegrasi (100% Frontend)
+
+Aplikasi ini tidak memiliki *backend/server* terpisah. Berikut adalah tumpukan teknologi asli yang digunakan dalam proyek ini:
+
+| Kategori | Teknologi/Library | Fungsi Spesifik di Proyek |
 | :--- | :--- | :--- |
-| **Frontend Framework** | **Next.js 14** (App Router) | *Routing* dan arsitektur UI berbasis React. |
-| **Styling & UI** | **Tailwind CSS & Shadcn UI** | *Utility-first CSS* dengan komponen UI siap pakai. |
-| **Database Lokal** | **Dexie.js (IndexedDB)** | Sistem penyimpanan *offline* murni di dalam *browser* (tanpa server). |
-| **Data Visualization** | **Recharts** | *Rendering* grafik statistik di Dashboard. |
-| **Backend / API Logic** | **FastAPI (Python)** | Arsitektur inti API (*Prepared for scale*). |
-| **Deployment** | **Vercel** | Platform *hosting* dengan dukungan penuh CI/CD. |
+| **Framework** | **Next.js 14.2.3** | Menggunakan arsitektur App Router untuk navigasi antar menu halaman secara dinamis. |
+| **Bahasa** | **TypeScript** | *Type-safety* ketat untuk mendefinisikan tipe data *Transaksi*, *Saldo*, dan *Analisis*. |
+| **Database** | **Dexie.js** | Wrapper *IndexedDB* untuk menyimpan semua mutasi akuntansi langsung ke memori lokal *browser*. |
+| **Styling** | **Tailwind CSS** | Pembuatan tata letak (*layouting*), warna khusus (success, warning, destructive), dan *Dark Mode*. |
+| **UI Components** | **Shadcn UI** | Elemen *interface* siap pakai seperti Card, Button, Input, Label, dan Skeleton Loading. |
+| **Grafik** | **Recharts** | *Rendering* `BarChart` interaktif pada halaman Dashboard. |
+| **Iconography** | **Lucide React** | Ikon minimalis dan modern di menu navigasi, tombol, dan dekorasi halaman. |
+| **Peringatan** | **Radix UI (Toast)** | Sistem notifikasi *pop-up* (sukses simpan, gagal, data di-reset, dll). |
 
 ---
 
-## 📂 Arsitektur Database (Client-Side Storage)
+## 📂 Penyimpanan Data (Privacy & Local Storage)
 
-Aplikasi ini menggunakan pendekatan **Privacy-First**. Seluruh mutasi keuangan disimpan secara lokal di perangkat pengguna menggunakan `IndexedDB`. 
-
-> **⚠️ PERHATIAN:** Membersihkan *cache* browser atau membuka domain di perangkat berbeda akan menghasilkan halaman aplikasi yang kosong. Pengguna sangat dianjurkan untuk menggunakan fitur **Export JSON** secara berkala.
+Aplikasi ini menggunakan pendekatan **100% Client-Side**. 
+* Seluruh mutasi keuangan disimpan secara **Lokal** di `IndexedDB` *browser* perangkat pengguna (HP/Laptop).
+* **TIDAK ADA** data yang dikirim, diproses, atau disimpan di *server cloud*.
+* **PENTING:** Jika pengguna melakukan *Clear Cache / Clear Data browser*, atau membuka URL melalui perangkat/browser yang berbeda, data akan kosong. Gunakan fitur **Export JSON** di halaman Laporan untuk memindahkan/menyimpan data.
 
 ---
 
-## 🚀 Panduan Instalasi Lokal (Getting Started)
+## 🚀 Panduan Instalasi Lokal
 
-Jika Anda ingin menjalankan atau mengembangkan sistem ini di komputer lokal Anda, ikuti langkah-langkah berikut:
+Jika Anda ingin menjalankan sistem ini di komputer Anda sendiri:
 
 ### Prasyarat
-* [Node.js](https://nodejs.org/) (Versi 18.x atau lebih baru)
-* NPM / Yarn / PNPM
+* [Node.js](https://nodejs.org/) (Versi 18.x atau lebih baru) disarankan.
+* NPM atau Yarn.
 
 ### Langkah Instalasi
 
 1. **Clone repositori ini:**
    ```bash
-   git clone https://github.com/sanzzyproject/akutansi-nextjs.git
+   git clone [https://github.com/sanzzyproject/akutansi-nextjs.git](https://github.com/sanzzyproject/akutansi-nextjs.git)
    cd akutansi-nextjs
    ```
 
 2. **Instal dependensi:**
    ```bash
    npm install
-   # atau
-   yarn install
    ```
 
-3. **Jalankan server pengembangan (Development Server):**
+3. **Jalankan server pengembangan:**
    ```bash
    npm run dev
    ```
 
-4. **Buka di Browser:**
-   Akses `http://localhost:3000` di browser Anda untuk melihat hasilnya.
-
----
-
-## 💡 Panduan Penggunaan Singkat
-
-<details>
-<summary><b>1. Cara Input Transaksi Persamaan</b></summary>
-<br>
-
-1. Buka menu **Persamaan**.
-2. Klik **Tambah Transaksi**.
-3. Jika terdapat *pengurangan* pada suatu akun, Anda **wajib** menambahkan tanda minus (`-`) sebelum nominal (Contoh: `-5000000`).
-4. Klik Simpan. Periksa indikator keseimbangan di halaman Dashboard.
-</details>
-
-<details>
-<summary><b>2. Cara Menggunakan Analisis Debit/Kredit</b></summary>
-<br>
-
-1. Buka menu **Analisis D/K**.
-2. Masukkan Deskripsi, Tanggal, dan Bukti Dokumen.
-3. Pilih Kategori (misal: Harta) dan sifat pengaruhnya (+ atau -).
-4. Sistem akan otomatis mengisi kolom **D/K** dengan indikator yang benar sesuai hukum akuntansi.
-5. Simpan dan lihat histori mutasinya di tabel bawah.
-</details>
+4. **Akses Aplikasi:**
+   Buka `http://localhost:3000` di *browser* Anda.
 
 ---
 
@@ -134,18 +120,17 @@ Dikembangkan secara penuh oleh **SANN404 FORUM** dengan dedikasi tinggi untuk me
 
 * **Lead Developer & System Logic:** SANN404 FORUM
 * **UI/UX Architect:** SANN404 FORUM
-* **Sponsor Deployment:** Vercel
+* **Domain & Hosting:** Vercel (`movingdownloader.vercel.app`)
 
-Didesain untuk menangani lalu lintas penggunaan hingga 2.000+ pengguna (siswa/umum) dengan *latency* 0ms berkat teknologi penyimpanan lokal.
+Aplikasi ini mampu melayani ribuan pengguna karena tidak ada beban pengolahan data pada *server* (setiap *browser* memproses datanya sendiri).
 
 ---
 
 ## 📄 Lisensi
 
-Mendistribusikan perangkat lunak ini di bawah lisensi **MIT**. Hak cipta © 2026 SANN404 FORUM. Anda bebas menggunakan, memodifikasi, dan mendistribusikan proyek ini untuk tujuan komersial maupun pribadi dengan tetap menyertakan atribusi orisinil.
+Mendistribusikan perangkat lunak ini di bawah lisensi **MIT**. Hak cipta © 2026 SANN404 FORUM. Anda bebas menggunakan, memodifikasi, dan mendistribusikan proyek ini dengan tetap menyertakan atribusi orisinil.
 
 <div align="center">
   <br/>
   <sub><b>Dibangun dengan ❤️ oleh SANN404 FORUM</b></sub>
 </div>
-
