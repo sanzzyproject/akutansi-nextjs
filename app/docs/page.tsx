@@ -24,7 +24,7 @@ export default function DocsPage() {
             <strong>Akuntansi LKS</strong> adalah aplikasi berbasis web yang dirancang untuk mempermudah pencatatan dan perhitungan <em>Persamaan Dasar Akuntansi</em> (Harta = Utang + Modal).
           </p>
           <p>
-            Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara real-time.
+            Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara *real-time*.
           </p>
         </CardContent>
       </Card>
@@ -60,6 +60,28 @@ export default function DocsPage() {
         </CardContent>
       </Card>
 
+      {/* SEKSI BARU: Penjelasan Fleksibilitas Penggunaan */}
+      <Card className="border-primary/20 bg-primary/5">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-2 text-lg text-primary">
+            <BookOpen className="h-5 w-5" /> Fleksibilitas Penggunaan (Penting)
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="text-sm text-muted-foreground space-y-3 leading-relaxed">
+          <p>
+            Sistem input transaksi di aplikasi ini sengaja <strong>tidak dikunci</strong> meskipun input Harta dan Pasiva (Utang + Modal) tidak seimbang. Tujuannya agar aplikasi ini memiliki fungsi ganda yang jauh lebih fleksibel:
+          </p>
+          <ul className="list-disc pl-5 space-y-2">
+            <li>
+              <strong className="text-foreground">Sebagai Alat Belajar Akuntansi:</strong> Anda bebas melakukan <em>trial & error</em>. Dashboard utama akan menjadi "Hakim" Anda. Jika indikator di Dashboard menunjukkan peringatan merah <span className="text-destructive font-semibold">❌ Tidak Seimbang</span>, hal tersebut akan melatih Anda untuk menganalisis ulang dan mengoreksi letak kesalahan input (apakah kurang tanda minus atau salah kolom).
+            </li>
+            <li>
+              <strong className="text-foreground">Sebagai Catatan Keuangan Bebas:</strong> Aplikasi ini bisa beralih fungsi menjadi pencatat kas harian atau bulanan biasa. Pengguna awam bebas mencatat "Kas Keluar" atau "Kas Masuk" saja tanpa harus repot memikirkan keseimbangan teori <em>double-entry accounting</em>.
+            </li>
+          </ul>
+        </CardContent>
+      </Card>
+
       <Card className="border-warning/50 bg-warning/5">
         <CardHeader className="pb-4">
           <CardTitle className="flex items-center gap-2 text-lg text-warning-foreground">
@@ -82,7 +104,6 @@ export default function DocsPage() {
         </CardContent>
       </Card>
 
-      {/* Bagian Credits & Attribution ala Perusahaan Besar */}
       <Card className="overflow-hidden border-primary/20 shadow-sm">
         <CardHeader className="pb-4 bg-muted/30 border-b border-border/50">
           <CardTitle className="flex items-center gap-2 text-lg">
@@ -108,7 +129,7 @@ export default function DocsPage() {
           </div>
 
           <div className="pt-4 border-t border-border/50">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-3">Technologies Powered By</span>
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-3">Open Source Technologies Powered By</span>
             <div className="flex flex-wrap gap-2">
               <span className="px-2.5 py-1 bg-muted rounded-md text-xs font-medium border border-border/50">Next.js App Router</span>
               <span className="px-2.5 py-1 bg-muted rounded-md text-xs font-medium border border-border/50">Tailwind CSS</span>
