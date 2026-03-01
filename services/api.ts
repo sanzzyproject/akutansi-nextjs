@@ -1,5 +1,5 @@
 import { db, dataDummy } from '@/db/database';
-import type { Transaksi, SaldoBerjalan, RingkasanAkuntansi } from '@/db/types';
+import type { Transaksi, SaldoBerjalan, RingkasanAkuntansi, AnalisisRecord } from '@/db/types';
 
 const delay = (ms = 150) => new Promise(r => setTimeout(r, ms));
 
@@ -84,8 +84,6 @@ export async function exportJSON(): Promise<string> {
   return JSON.stringify({ transaksi, ringkasan }, null, 2);
 }
 
-// ... (KODE LAMA BIARKAN SAJA DI SINI) ...
-
 // === TAMBAHAN API UNTUK ANALISIS DEBIT/KREDIT ===
 
 export async function getAnalisis(): Promise<AnalisisRecord[]> {
@@ -103,4 +101,3 @@ export async function deleteAnalisis(id: number): Promise<void> {
   await delay();
   await db.analisis.delete(id);
 }
-
