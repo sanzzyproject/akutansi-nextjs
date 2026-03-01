@@ -10,6 +10,17 @@ import { getTransaksi, addTransaksi, deleteTransaksi } from '@/services/api';
 import type { Transaksi } from '@/db/types';
 import { Plus, Pencil, Trash2, Save, X } from 'lucide-react';
 
+// Helper function untuk format angka dinamis (k, jt)
+function formatNominal(val: number) {
+  const abs = Math.abs(val);
+  if (abs >= 1000000) {
+    return (abs / 1000000).toFixed(1).replace(/\.0$/, '') + 'jt';
+  } else if (abs >= 1000) {
+    return (abs / 1000).toFixed(1).replace(/\.0$/, '') + 'k';
+  }
+  return abs.toString();
+}
+
 // Komponen kotak kecil untuk menampilkan nilai uang
 function DataBox({ label, value }: { label: string; value: number }) {
   const isEmpty = !value || value === 0;
@@ -28,7 +39,7 @@ function DataBox({ label, value }: { label: string; value: number }) {
           <span className="text-muted-foreground">—</span>
         ) : (
           <span className={isPos ? "text-success font-semibold" : "text-destructive font-semibold"}>
-            {isPos ? '+' : '-'}{(Math.abs(value) / 1000000).toFixed(1)}jt
+            {isPos ? '+' : '-'}{formatNominal(value)}
           </span>
         )}
       </span>
@@ -152,7 +163,7 @@ export default function TransaksiPage() {
     );
   }
 
-  // 2. Tampilan List Transaksi (Seperti di Screenshot)
+  // 2. Tampilan List Transaksi
   return (
     <div className="space-y-4 max-w-xl mx-auto animate-in fade-in duration-500">
       <Button onClick={() => setShowForm(true)} className="w-full py-6 text-base font-semibold shadow-md rounded-xl touch-target">
