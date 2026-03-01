@@ -24,7 +24,7 @@ export default function DocsPage() {
             <strong>Akuntansi LKS</strong> adalah aplikasi berbasis web yang dirancang untuk mempermudah pencatatan dan perhitungan <em>Persamaan Dasar Akuntansi</em> (Harta = Utang + Modal).
           </p>
           <p>
-            Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara *real-time*.
+            Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara real-time.
           </p>
         </CardContent>
       </Card>
