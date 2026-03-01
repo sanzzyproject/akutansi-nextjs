@@ -108,7 +108,7 @@ export default function DocsPage() {
           </div>
 
           <div className="pt-4 border-t border-border/50">
-            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-3">Open Source Technologies Powered By</span>
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider block mb-3">Technologies Powered By</span>
             <div className="flex flex-wrap gap-2">
               <span className="px-2.5 py-1 bg-muted rounded-md text-xs font-medium border border-border/50">Next.js App Router</span>
               <span className="px-2.5 py-1 bg-muted rounded-md text-xs font-medium border border-border/50">Tailwind CSS</span>
