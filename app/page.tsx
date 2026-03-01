@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -10,7 +10,7 @@ import type { RingkasanAkuntansi } from '@/db/types';
 import { DollarSign, TrendingUp, TrendingDown, CheckCircle, XCircle, Plus, FileText, Wallet, Package, Monitor } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
-// --- KOMPONEN BARU: HALAMAN WELCOME (ONBOARDING) ---
+// --- KOMPONEN BARU: HALAMAN WELCOME ---
 function WelcomeScreen({ onStart }: { onStart: () => void }) {
   return (
     <div className="fixed inset-0 z-[100] bg-white flex flex-col justify-between overflow-hidden text-black animate-in fade-in duration-500">
@@ -52,7 +52,7 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
     </div>
   );
 }
-// --------------------------------------------------
+// -------------------------------------------------------------------------
 
 function formatRupiah(n: number) {
   return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(n);
@@ -71,8 +71,8 @@ export default function Dashboard() {
   const [data, setData] = useState<RingkasanAkuntansi | null>(null);
   const [loading, setLoading] = useState(true);
   
-  // State untuk mengontrol kemunculan halaman Welcome
-  const [showWelcome, setShowWelcome] = useState(false);
+  // State untuk kontrol halaman Welcome (DISET SELALU TRUE DI AWAL)
+  const [showWelcome, setShowWelcome] = useState(true); 
   const [mounted, setMounted] = useState(false);
 
   const load = async () => {
@@ -84,28 +84,22 @@ export default function Dashboard() {
 
   useEffect(() => {
     setMounted(true);
-    // Cek apakah user sudah pernah klik "Mulai Sekarang" sebelumnya
-    if (!localStorage.getItem('welcomeSeen')) {
-      setShowWelcome(true);
-    }
     load();
   }, []);
 
   const handleStart = () => {
-    // Simpan status agar halaman welcome tidak muncul lagi saat di-refresh
-    localStorage.setItem('welcomeSeen', 'true');
+    // Hanya hilangkan dari layar saat diklik, tanpa nyimpan ke memori browser
     setShowWelcome(false);
   };
 
-  // Mencegah error hydration di Next.js
   if (!mounted) return null;
 
-  // Jika showWelcome aktif, Tampilkan layar Welcome di atas segalanya
+  // Tampilkan layar Welcome menutupi dashboard
   if (showWelcome) {
     return <WelcomeScreen onStart={handleStart} />;
   }
 
-  // JIKA SUDAH MULAI SEKARANG, TAMPILKAN DASHBOARD NORMAL KITA
+  // --- KODE DASHBOARD LAMA ---
   if (loading) {
     return (
       <div className="space-y-4">
