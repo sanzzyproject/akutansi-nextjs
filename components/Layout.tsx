@@ -3,7 +3,7 @@
 import { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ArrowLeftRight, FileText, Moon, Sun } from 'lucide-react';
+import { LayoutDashboard, ArrowLeftRight, FileText, Moon, Sun, BookOpen } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 
@@ -11,6 +11,7 @@ const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/transaksi', label: 'Transaksi', icon: ArrowLeftRight },
   { path: '/laporan', label: 'Laporan', icon: FileText },
+  { path: '/docs', label: 'Docs', icon: BookOpen },
 ];
 
 function ThemeToggle() {
@@ -46,7 +47,7 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   const currentTitle = navItems.find(n => n.path === pathname)?.label || 'Akuntansi LKS';
 
-  if (!mounted) return null; // Mencegah hydration mismatch di Next.js
+  if (!mounted) return null;
 
   return (
     <div className="min-h-screen flex bg-background">
