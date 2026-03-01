@@ -26,9 +26,22 @@ export interface RingkasanAkuntansi {
   totalModal: number;
   seimbang: boolean;
   jumlahTransaksi: number;
-  detail: {
-    kas: number;
-    perlengkapan: number;
-    peralatan: number;
-  };
+  detail: { kas: number; perlengkapan: number; peralatan: number; };
+}
+
+// TIPE DATA BARU UNTUK ANALISIS D/K
+export interface DetailAnalisis {
+  kategori: 'Harta' | 'Utang' | 'Modal' | 'Pendapatan' | 'Biaya' | '';
+  akun: string;
+  pengaruh: '+' | '-' | '';
+  dk: 'D' | 'K' | '';
+  jumlah: number;
+}
+
+export interface AnalisisRecord {
+  id?: number;
+  tanggal: string;
+  transaksi: string;
+  dokumen: string;
+  details: DetailAnalisis[];
 }
