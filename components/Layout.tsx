@@ -3,13 +3,15 @@
 import { ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, ArrowLeftRight, FileText, Moon, Sun, BookOpen } from 'lucide-react';
+import { LayoutDashboard, ArrowLeftRight, FileText, Moon, Sun, BookOpen, Scale } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Button } from '@/components/ui/button';
 
+// MENU BARU DITAMBAHKAN DI SINI
 const navItems = [
   { path: '/', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/transaksi', label: 'Transaksi', icon: ArrowLeftRight },
+  { path: '/transaksi', label: 'Persamaan', icon: ArrowLeftRight },
+  { path: '/analisis', label: 'Analisis D/K', icon: Scale }, // <-- INI MENU BARUNYA
   { path: '/laporan', label: 'Laporan', icon: FileText },
   { path: '/docs', label: 'Docs', icon: BookOpen },
 ];
@@ -51,7 +53,6 @@ export default function Layout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen flex bg-background">
-      {/* Desktop Sidebar */}
       {!isMobile && (
         <aside className="w-64 bg-sidebar text-sidebar-foreground border-r border-sidebar-border flex flex-col fixed h-full z-30">
           <div className="p-6 border-b border-sidebar-border">
@@ -83,19 +84,16 @@ export default function Layout({ children }: { children: ReactNode }) {
         </aside>
       )}
 
-      {/* Main Content */}
       <main className={`flex-1 ${!isMobile ? 'ml-64' : ''} ${isMobile ? 'pb-20' : ''}`}>
         <header className="sticky top-0 z-20 bg-background/80 backdrop-blur-lg border-b border-border px-4 md:px-8 py-4 flex items-center justify-between">
           <h2 className="text-lg font-bold">{currentTitle}</h2>
           {isMobile && <ThemeToggle />}
         </header>
-
         <div className="p-4 md:p-8 max-w-6xl mx-auto">
           {children}
         </div>
       </main>
 
-      {/* Mobile Bottom Navigation */}
       {isMobile && (
         <nav className="fixed bottom-0 left-0 right-0 z-30 bg-background/95 backdrop-blur-lg border-t border-border flex justify-around py-2 px-2 pb-safe">
           {navItems.map(item => {
@@ -104,12 +102,12 @@ export default function Layout({ children }: { children: ReactNode }) {
               <Link
                 key={item.path}
                 href={item.path}
-                className={`flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-colors touch-target ${
+                className={`flex flex-col items-center gap-1 px-3 py-2 rounded-xl transition-colors touch-target ${
                   active ? 'text-primary' : 'text-muted-foreground'
                 }`}
               >
                 <item.icon className={`h-5 w-5 ${active ? 'stroke-[2.5]' : ''}`} />
-                <span className="text-[10px] font-medium">{item.label}</span>
+                <span className="text-[10px] font-medium truncate w-full text-center">{item.label}</span>
               </Link>
             );
           })}
