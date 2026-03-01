@@ -82,5 +82,70 @@ Jika Anda ingin menjalankan atau mengembangkan sistem ini di komputer lokal Anda
 
 1. **Clone repositori ini:**
    ```bash
-   git clone [https://github.com/sanzzyproject/akutansi-nextjs.git](https://github.com/sanzzyproject/akutansi-nextjs.git)
+   git clone https://github.com/sanzzyproject/akutansi-nextjs.git
    cd akutansi-nextjs
+   ```
+
+2. **Instal dependensi:**
+   ```bash
+   npm install
+   # atau
+   yarn install
+   ```
+
+3. **Jalankan server pengembangan (Development Server):**
+   ```bash
+   npm run dev
+   ```
+
+4. **Buka di Browser:**
+   Akses `http://localhost:3000` di browser Anda untuk melihat hasilnya.
+
+---
+
+## 💡 Panduan Penggunaan Singkat
+
+<details>
+<summary><b>1. Cara Input Transaksi Persamaan</b></summary>
+<br>
+
+1. Buka menu **Persamaan**.
+2. Klik **Tambah Transaksi**.
+3. Jika terdapat *pengurangan* pada suatu akun, Anda **wajib** menambahkan tanda minus (`-`) sebelum nominal (Contoh: `-5000000`).
+4. Klik Simpan. Periksa indikator keseimbangan di halaman Dashboard.
+</details>
+
+<details>
+<summary><b>2. Cara Menggunakan Analisis Debit/Kredit</b></summary>
+<br>
+
+1. Buka menu **Analisis D/K**.
+2. Masukkan Deskripsi, Tanggal, dan Bukti Dokumen.
+3. Pilih Kategori (misal: Harta) dan sifat pengaruhnya (+ atau -).
+4. Sistem akan otomatis mengisi kolom **D/K** dengan indikator yang benar sesuai hukum akuntansi.
+5. Simpan dan lihat histori mutasinya di tabel bawah.
+</details>
+
+---
+
+## 👨‍💻 Pengembang & Atribusi
+
+Dikembangkan secara penuh oleh **SANN404 FORUM** dengan dedikasi tinggi untuk memodernisasi pembelajaran akuntansi.
+
+* **Lead Developer & System Logic:** SANN404 FORUM
+* **UI/UX Architect:** SANN404 FORUM
+* **Sponsor Deployment:** Vercel
+
+Didesain untuk menangani lalu lintas penggunaan hingga 2.000+ pengguna (siswa/umum) dengan *latency* 0ms berkat teknologi penyimpanan lokal.
+
+---
+
+## 📄 Lisensi
+
+Mendistribusikan perangkat lunak ini di bawah lisensi **MIT**. Hak cipta © 2026 SANN404 FORUM. Anda bebas menggunakan, memodifikasi, dan mendistribusikan proyek ini untuk tujuan komersial maupun pribadi dengan tetap menyertakan atribusi orisinil.
+
+<div align="center">
+  <br/>
+  <sub><b>Dibangun dengan ❤️ oleh SANN404 FORUM</b></sub>
+</div>
+
