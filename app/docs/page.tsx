@@ -166,12 +166,6 @@ export default function DocsPage() {
               <span className="px-2.5 py-1 bg-muted rounded-md text-xs font-medium border border-border/50">Recharts</span>
               <span className="px-2.5 py-1 bg-muted rounded-md text-xs font-medium border border-border/50">Lucide Icons</span>
             </div>
-          </div>
-
-          <div className="pt-2 flex items-center gap-2 text-muted-foreground text-xs italic bg-primary/5 p-3 rounded-lg border border-primary/10">
-            <Heart className="h-4 w-4 text-destructive shrink-0" fill="currentColor" /> 
-            <span>Dikembangkan dengan dedikasi tinggi untuk memfasilitasi dan memodernisasi pembelajaran akuntansi.</span>
-          </div>
         </CardContent>
       </Card>
 
