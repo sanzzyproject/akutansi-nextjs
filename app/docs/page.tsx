@@ -10,7 +10,7 @@ export default function DocsPage() {
       
       <div className="mb-8">
         <h1 className="text-2xl font-bold mb-2">Dokumentasi Aplikasi</h1>
-        <p className="text-muted-foreground text-sm">Panduan lengkap penggunaan dan informasi teknis Akuntansi LKS.</p>
+        <p className="text-muted-foreground text-sm">Panduan lengkap penggunaan dan informasi teknis Akuntansi.</p>
       </div>
 
       <Card>
@@ -24,7 +24,7 @@ export default function DocsPage() {
             <strong>Akuntansi LKS</strong> adalah aplikasi berbasis web yang dirancang untuk mempermudah pencatatan dan perhitungan <em>Persamaan Dasar Akuntansi</em> (Harta = Utang + Modal) serta <em>Analisis Debit/Kredit</em>.
           </p>
           <p>
-            Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara real-time.
+            Aplikasi ini mendigitalisasi proses pengerjaan Lembar Kerja atau pembukuan dasar, secara otomatis menghitung saldo berjalan (running balance), dan memvalidasi keseimbangan neraca secara real-time.
           </p>
         </CardContent>
       </Card>
@@ -75,7 +75,7 @@ export default function DocsPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="text-sm text-muted-foreground space-y-3 leading-relaxed">
-          <p>Sesuai dengan kurikulum LKS dan kebutuhan praktik, aplikasi ini menyediakan dua jalur pembukuan yang terpisah:</p>
+          <p>Sesuai dengan kebutuhan praktik, aplikasi ini menyediakan dua jalur pembukuan yang terpisah:</p>
           <ul className="list-disc pl-5 space-y-3">
             <li>
               <strong className="text-foreground">1. Mode Persamaan Akuntansi:</strong><br/>
