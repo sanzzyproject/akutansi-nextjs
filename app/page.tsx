@@ -19,16 +19,21 @@ function WelcomeScreen({ onStart }: { onStart: () => void }) {
       <div className="absolute bottom-[-5%] left-[-20%] w-[150%] h-[35vh] bg-[#cdeaf8] rounded-t-[50%] -z-10 transform rotate-[-5deg]"></div>
 
       <div className="px-8 pt-32 pb-10 flex-1 flex flex-col justify-center relative w-full max-w-md mx-auto">
-        {/* Dekorasi Bintang (Sparkles) */}
-        <svg className="absolute top-20 right-8 text-white w-12 h-12 rotate-12 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
-        <svg className="absolute top-64 left-6 text-black w-14 h-14 -rotate-12 drop-shadow-md" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
-        <svg className="absolute top-72 left-20 text-black w-8 h-8 rotate-45 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.15 9.85L22 12L14.15 14.15L12 22L9.85 14.15L2 12L9.85 9.85L12 2Z" /></svg>
-        <svg className="absolute bottom-16 right-10 text-white w-16 h-16 rotate-45 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
+        {/* Dekorasi Bintang (Sparkles) - POSISI SUDAH DIPERBAIKI AGAR TIDAK NUMPUK TEKS */}
+        {/* Bintang Atas Kanan */}
+        <svg className="absolute top-16 right-8 text-white w-12 h-12 rotate-12 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
+        
+        {/* Bintang Bawah Kiri (Hitam) - Digeser ke bottom agar di bawah teks */}
+        <svg className="absolute bottom-32 left-6 text-black w-16 h-16 -rotate-12 drop-shadow-md" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
+        <svg className="absolute bottom-28 left-24 text-black w-8 h-8 rotate-45 opacity-80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.15 9.85L22 12L14.15 14.15L12 22L9.85 14.15L2 12L9.85 9.85L12 2Z" /></svg>
+        
+        {/* Bintang Bawah Kanan (Putih) */}
+        <svg className="absolute bottom-20 right-10 text-white w-14 h-14 rotate-45 drop-shadow-sm" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" /></svg>
 
-        <h1 className="text-[2.75rem] font-black leading-[1.1] mb-5 tracking-tight text-black relative z-10">
+        <h1 className="text-[2.75rem] font-black leading-[1.1] mb-5 tracking-tight text-black relative z-20">
           Kelola<br/>Keuangan<br/>Jadi Mudah
         </h1>
-        <p className="text-gray-800 text-lg mb-8 leading-relaxed max-w-[280px] font-medium relative z-10">
+        <p className="text-gray-800 text-lg mb-8 leading-relaxed max-w-[280px] font-medium relative z-20">
           Atur kas dan transaksi lebih mudah dengan aplikasi LKS akuntansi ini.
         </p>
 
