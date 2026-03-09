@@ -1,6 +1,6 @@
 <div align="center">
   
-  # 📊 Akuntansi LKS - Sistem Pembukuan Digital
+  # Akuntansi LKS - Sistem Pembukuan Digital
   
   **Aplikasi Web Client-Side untuk Pembelajaran Akuntansi & Pencatatan Kas Terpadu**
 
@@ -17,7 +17,7 @@
 
 ---
 
-## 📖 Tentang Projek
+## Tentang Projek
 
 **Akuntansi LKS** adalah aplikasi berbasis web revolusioner yang dikembangkan oleh **SANN404 FORUM**. Aplikasi ini dirancang 100% *Client-Side* untuk mendigitalisasi proses pengerjaan Lembar Kerja Siswa (LKS) Akuntansi serta memfasilitasi pencatatan arus kas harian secara fleksibel, cepat, dan aman langsung di perangkat pengguna.
 
@@ -25,29 +25,29 @@ Sistem ini tidak bergantung pada *database server*, melainkan memanfaatkan tekno
 
 ---
 
-## ✨ Fitur Utama (Real Implemented Features)
+## Fitur Utama (Real Implemented Features)
 
 Aplikasi ini memiliki 5 modul halaman utama dengan fitur yang sangat spesifik:
 
-### 1. 🚀 Halaman Welcome (Onboarding)
+### 1. Halaman Welcome (Onboarding)
 * Tampilan sambutan layar penuh (overlay) murni menggunakan CSS Shapes dan SVG (tanpa aset gambar eksternal yang memberatkan).
 * Otomatis muncul di awal saat membuka web dan akan menutup mulus ke Dashboard saat tombol "Mulai Sekarang" ditekan.
 
-### 2. 📈 Dashboard Pintar (Analitik Visual)
+### 2. Dashboard Pintar (Analitik Visual)
 * **Status Keseimbangan Real-time:** Kartu indikator dinamis (✅ Seimbang / ❌ Tidak Seimbang) yang menghitung *Harta = Utang + Modal*.
 * **Ringkasan Finansial:** Menampilkan total Harta, Utang, Modal, dan jumlah transaksi dengan format Rupiah yang otomatis rapi.
 * **Grafik Batang Harta:** Visualisasi komposisi Kas, Perlengkapan, dan Peralatan menggunakan **Recharts**. Skala (Y-Axis) otomatis menyesuaikan *k* (ribuan) atau *jt* (jutaan) agar label tidak menumpuk.
 
-### 3. 🧮 Mode Transaksi (Persamaan Dasar Akuntansi)
+### 3. Mode Transaksi (Persamaan Dasar Akuntansi)
 * Sistem pencatatan *Double-Entry* manual untuk Harta (Kas, Perlengkapan, Peralatan) dan Pasiva (Utang Usaha, Modal).
 * Format nominal pintar (+ dan -).
 * **Bebas Blokir (Fleksibel):** Form input sengaja tidak dikunci meski tidak seimbang, memungkinkan aplikasi ini berubah fungsi dari LKS Akuntansi menjadi sekadar *expense tracker* harian untuk pengguna umum.
 
-### 4. ⚖️ Mode Analisis Debit/Kredit (D/K)
+### 4. Mode Analisis Debit/Kredit (D/K)
 * Tabel pencatatan jurnal lanjutan untuk 5 pilar akun (Harta, Utang, Modal, Pendapatan, Biaya).
 * **Algoritma Auto D/K:** Sistem akan mendeteksi Kategori Akun dan Sifat (+/-) yang dipilih pengguna, lalu secara otomatis mengunci indikator **Debit (D)** atau **Kredit (K)** dengan warna biru/merah sesuai hukum baku akuntansi.
 
-### 5. 📑 Laporan (Kertas Kerja) & Manajemen Data
+### 5. Laporan (Kertas Kerja) & Manajemen Data
 * Tampilan tabel bergaris menyerupai buku LKS fisik.
 * **Auto Running Balance:** Saldo berjalan dihitung otomatis dan disisipkan di bawah setiap baris transaksi. Angka defisit (minus) otomatis berwarna merah.
 * **Export JSON:** Fitur untuk mengunduh semua data transaksi menjadi file `.json` sebagai *backup* karena aplikasi bersifat *local-storage*.
@@ -57,7 +57,7 @@ Aplikasi ini memiliki 5 modul halaman utama dengan fitur yang sangat spesifik:
 
 ---
 
-## 🛠️ Stack Teknologi Terintegrasi (100% Frontend)
+## Stack Teknologi Terintegrasi (100% Frontend)
 
 Aplikasi ini tidak memiliki *backend/server* terpisah. Berikut adalah tumpukan teknologi asli yang digunakan dalam proyek ini:
 
@@ -74,7 +74,7 @@ Aplikasi ini tidak memiliki *backend/server* terpisah. Berikut adalah tumpukan t
 
 ---
 
-## 🗂️ Struktur Folder Projek
+## Struktur Folder Projek
 
 Aplikasi ini menggunakan sistem *App Router* dari Next.js 14. Berikut adalah struktur direktori yang digunakan:
 
@@ -110,7 +110,7 @@ akutansi-nextjs/
 └── README.md              # File panduan repository ini
 ```
 
-## 📂 Penyimpanan Data (Privacy & Local Storage)
+## Penyimpanan Data (Privacy & Local Storage)
 
 Aplikasi ini menggunakan pendekatan **100% Client-Side**. 
 * Seluruh mutasi keuangan disimpan secara **Lokal** di `IndexedDB` *browser* perangkat pengguna (HP/Laptop).
@@ -119,7 +119,7 @@ Aplikasi ini menggunakan pendekatan **100% Client-Side**.
 
 ---
 
-## 🚀 Panduan Instalasi Lokal
+## Panduan Instalasi Lokal
 
 Jika Anda ingin menjalankan sistem ini di komputer Anda sendiri:
 
@@ -150,7 +150,7 @@ Jika Anda ingin menjalankan sistem ini di komputer Anda sendiri:
 
 ---
 
-## 👨‍💻 Pengembang & Atribusi
+## Pengembang & Atribusi
 
 Dikembangkan secara penuh oleh **SANN404 FORUM** dengan dedikasi tinggi untuk memodernisasi pembelajaran akuntansi.
 
@@ -162,7 +162,7 @@ Aplikasi ini mampu melayani ribuan pengguna karena tidak ada beban pengolahan da
 
 ---
 
-## 📄 Lisensi
+## Lisensi
 
 Mendistribusikan perangkat lunak ini di bawah lisensi **MIT**. Hak cipta © 2026 SANN404 FORUM. Anda bebas menggunakan, memodifikasi, dan mendistribusikan proyek ini dengan tetap menyertakan atribusi orisinil.
 
